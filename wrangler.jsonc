@@ -1,0 +1,22 @@
+// pathways.medical-psilocybin.org: practical guides for permit applicants and a
+// browser-side drafter. Static assets served by a Cloudflare Worker with no code
+// of its own. Its own project and name; it never collides with the counter
+// Worker (nmmpab-count) the rules repository deploys.
+//
+// Deploy: npx wrangler@4 deploy --config ./wrangler.jsonc
+// No DNS record existed for this host, so Wrangler creates the custom domain.
+{
+  "name": "medical-psilocybin-pathways",
+  "compatibility_date": "2026-07-01",
+  "account_id": "2418db2ff3f95726c374a86551d2436e",
+  "workers_dev": false,
+  "preview_urls": false,
+  "assets": {
+    "directory": "./public",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  },
+  "routes": [
+    { "pattern": "pathways.medical-psilocybin.org", "custom_domain": true }
+  ]
+}

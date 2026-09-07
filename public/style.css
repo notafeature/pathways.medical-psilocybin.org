@@ -1,0 +1,163 @@
+/* 7.35.3 Training and Education: the site's one stylesheet.
+   White ground, ink, one working blue. Color belongs to meaning:
+   amber = open, green = settled, red = defect in the text, gray = superseded.
+   Serif appears only inside verbatim rule text. Mono carries data and wayfinding. */
+
+:root{
+  --bg:#FFFFFF; --ink:#16181D; --ink2:#4A4F58; --faint:#8A8F98; --hair:#E4E6EA; --wash:#F5F6F8;
+  --blue:#2447C7; --bluewash:#EEF1FB;
+  --open:#9A6700; --openwash:#FBF3DF;
+  --settled:#1E6B45; --settledwash:#EAF4EE;
+  --defect:#B42318; --defectwash:#FBEDEB;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --serif:Charter,"Bitstream Charter","Iowan Old Style",Georgia,serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+a{color:var(--blue);text-underline-offset:2px}
+
+/* retired chrome: the flat nav the July 28, 2026 navigation pass replaced.
+   Kept so a page cached before that pass still styles while the ten-minute
+   GitHub Pages cache turns over. Safe to remove in any later pass. */
+.top{border-bottom:1px solid var(--hair);position:sticky;top:0;background:var(--bg);z-index:30}
+.top .wrap{display:flex;gap:26px;height:54px;align-items:center}
+.top .brand{margin-right:auto;display:inline;white-space:normal}
+.top .brand b{color:var(--blue);font-weight:650}
+.top nav{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap}
+.top nav a{font:500 13.5px var(--sans);color:var(--ink2);text-decoration:none;padding:6px 10px;border-radius:4px}
+.top nav a:hover{background:var(--wash);color:var(--ink)}
+.top nav a[aria-current]{color:var(--blue);font-weight:650;background:var(--bluewash)}
+
+/* chrome: the shared menu. The markup is identical on every page; tools/check-site.py enforces it. */
+.topbar{border-bottom:1px solid var(--hair);position:sticky;top:0;background:var(--bg);z-index:30}
+.topbar .inner{max-width:1080px;margin:0 auto;padding:0 24px;min-height:54px;display:flex;align-items:center;gap:12px}
+.brand{font:650 14px var(--sans);color:var(--ink);text-decoration:none;letter-spacing:.01em;margin-right:auto;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.brand .dot{width:8px;height:8px;border-radius:50%;background:var(--blue)}
+.tnav{display:flex;gap:2px;align-items:center}
+.tnav a{font:500 13.5px var(--sans);color:var(--ink2);text-decoration:none;padding:6px 10px;border-radius:4px;white-space:nowrap}
+.tnav a:hover{background:var(--wash);color:var(--ink)}
+.tnav a.on,.tnav a[aria-current]{color:var(--blue);font-weight:650;background:var(--bluewash)}
+.navgrp{position:relative}
+.navgrp>summary{list-style:none;cursor:pointer;font:500 13.5px var(--sans);color:var(--ink2);padding:6px 10px;border-radius:4px;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.navgrp>summary::-webkit-details-marker{display:none}
+.navgrp>summary:hover,.navgrp[open]>summary{background:var(--wash);color:var(--ink)}
+.navgrp>summary.on{color:var(--blue);font-weight:650;background:var(--bluewash)}
+.navgrp .caret{font-size:10px;opacity:.7}
+.navgrp .tdrop-menu{position:absolute;top:calc(100% + 6px);left:0;background:var(--bg);border:1px solid var(--ink2);border-radius:4px;box-shadow:0 10px 30px rgba(22,24,29,.14);padding:6px;min-width:280px;display:flex;flex-direction:column;gap:2px;z-index:40}
+.navgrp[data-navgrp="docs"] .tdrop-menu{left:auto;right:0}
+.navgrp .tdrop-menu a{font:500 13.5px var(--sans);color:var(--ink);text-decoration:none;padding:8px 10px;border-radius:4px;white-space:normal;line-height:1.35}
+.navgrp .tdrop-menu a:hover{background:var(--wash)}
+.navgrp .tdrop-menu a.on,.navgrp .tdrop-menu a[aria-current]{background:var(--bluewash);color:var(--blue)}
+.navgrp .tdrop-menu a .sub{display:block;font:400 11.5px var(--sans);color:var(--faint);margin-top:2px}
+.navcta{font:600 13.5px var(--sans);color:var(--blue);background:var(--bluewash);text-decoration:none;border:1px solid transparent;padding:6px 12px;border-radius:4px;white-space:nowrap}
+.navcta:hover{border-color:var(--blue)}
+.hamburger{display:none;background:none;border:1px solid var(--hair);border-radius:4px;padding:4px 10px;font-size:16px;line-height:1;color:var(--ink);cursor:pointer}
+@media(max-width:860px){
+  .topbar .inner{position:relative}
+  .hamburger{display:block}
+  .tnav{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;background:var(--bg);border-bottom:1px solid var(--hair);box-shadow:0 18px 40px rgba(22,24,29,.14);padding:8px 24px 14px;gap:2px;max-height:82vh;overflow:auto;z-index:35}
+  .tnav.open{display:flex}
+  .navgrp{border-top:1px solid var(--hair)}
+  .navgrp:first-of-type{border-top:none}
+  .navgrp>summary{padding:11px 10px;display:flex}
+  .navgrp .caret{margin-left:auto}
+  .navgrp .tdrop-menu{position:static;box-shadow:none;border:none;padding:2px 0 8px 10px;min-width:0}
+  .navcta{text-align:left;margin-top:8px}
+}
+
+.foot{border-top:1px solid var(--hair);margin-top:80px}
+.foot .wrap{padding:22px 24px 34px;font-size:12.5px;color:var(--faint);display:flex;gap:26px;flex-wrap:wrap}
+.foot a{color:var(--ink2)}
+
+/* page head */
+.head{padding:42px 0 10px}
+.kicker{font:600 11px var(--mono);letter-spacing:.16em;color:var(--faint);text-transform:uppercase;margin:0 0 12px}
+.kicker b{color:var(--open);font-weight:600}
+h1{font:700 clamp(26px,3.6vw,34px)/1.15 var(--sans);letter-spacing:-.015em;margin:0 0 8px}
+.lede{font-size:16.5px;color:var(--ink2);max-width:60ch;margin:0}
+.stamp{font:12px var(--mono);color:var(--faint);margin:12px 0 0}
+
+section{margin:40px 0}
+h2{font:650 19px/1.3 var(--sans);letter-spacing:-.01em;margin:0 0 8px}
+h3{font:650 16px/1.4 var(--sans);margin:0 0 4px}
+p{margin:0 0 12px;max-width:64ch}
+.seclabel{font:600 10.5px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin:0 0 4px}
+
+/* status marks: always the word beside the color */
+.mark{display:inline-flex;align-items:center;gap:6px;font:650 10.5px var(--sans);letter-spacing:.08em;text-transform:uppercase;padding:4px 9px;border-radius:3px}
+.mark::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.mark.open{color:var(--open);background:var(--openwash)}
+.mark.settled{color:var(--settled);background:var(--settledwash)}
+.mark.defect{color:var(--defect);background:var(--defectwash)}
+.mark.gray{color:var(--ink2);background:var(--wash)}
+.mark.blue{color:var(--blue);background:var(--bluewash)}
+
+/* verbatim rule text: serif on wash, cited */
+.verbatim{font:16px/1.75 var(--serif);background:var(--wash);border-left:3px solid var(--ink);padding:14px 18px;margin:12px 0}
+.verbatim p{max-width:none}
+.vsrc{font:11.5px var(--mono);color:var(--faint);margin-top:8px}
+.vsrc a{color:var(--ink2)}
+
+/* data tables */
+table.data{border-collapse:collapse;width:100%;font-size:14px}
+table.data th{font:600 10.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--faint);text-align:left;padding:8px 12px 8px 0;border-bottom:1.5px solid var(--ink)}
+table.data td{padding:9px 12px 9px 0;border-bottom:1px solid var(--hair);vertical-align:top}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.sect{font:12px var(--mono);color:var(--ink2);white-space:nowrap}
+
+/* citation popover: hover opens, leaving closes, click opens the source in a new tab */
+.cite{position:relative;display:inline}
+.cite > a{font:600 10.5px var(--sans);color:var(--blue);text-decoration:none;vertical-align:super;line-height:0;padding:0 1px}
+.cite .pop{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(100% + 8px);width:300px;background:var(--ink);color:#F2F4F8;font:12.5px/1.55 var(--sans);padding:10px 13px;border-radius:4px;visibility:hidden;opacity:0;transition:opacity .12s;z-index:40}
+.cite .pop b{color:#fff}
+.cite .pop .go{display:block;margin-top:6px;font:11px var(--mono);color:#9FB2E8}
+.cite:hover .pop{visibility:visible;opacity:1}
+.cite .pop::after{content:"";position:absolute;top:100%;left:50%;margin-left:-5px;border:5px solid transparent;border-top-color:var(--ink)}
+
+/* fixtures: dated one-line rows */
+.fix{display:flex;gap:16px;align-items:baseline;padding:9px 0;border-top:1px solid var(--hair);font-size:14.5px}
+.fix:first-of-type{border-top:1.5px solid var(--ink)}
+.fix b{font:600 12px var(--mono);white-space:nowrap;color:var(--ink)}
+.fix .what{color:var(--ink2)}
+.fix .what a{white-space:nowrap}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+@media(max-width:820px){.grid2{grid-template-columns:1fr}}
+.note{border-left:3px solid var(--blue);background:var(--bluewash);padding:12px 16px;font-size:14px;margin:14px 0}
+.note.open{border-color:var(--open);background:var(--openwash)}
+.note.defect{border-color:var(--defect);background:var(--defectwash)}
+
+/* Citations: the source opens on hover, closes on leave, and the click opens it in a new tab */
+a[data-cite]{position:relative}
+a[data-cite]:hover::after,a[data-cite]:focus-visible::after{
+  content:attr(data-cite);position:absolute;left:0;bottom:calc(100% + 7px);z-index:40;
+  width:max-content;max-width:min(320px,72vw);white-space:normal;
+  font:500 11.5px/1.5 var(--mono);letter-spacing:.01em;color:var(--ink);text-align:left;
+  background:var(--bg);border:1px solid var(--ink2);border-radius:4px;padding:7px 10px;
+  pointer-events:none}
+a.pdf[data-cite]:hover::after,a.pdf[data-cite]:focus-visible::after{left:auto;right:0}
+
+/* Provenance: the source-document chain and the per-page revision log,
+   one collapsed details block at the end of main on every content page,
+   generated by tools/sync-provenance.py. The restored pages carry their
+   own copy of these rules in their page stylesheets. */
+.prov{margin:72px 0 0;border-top:1px solid var(--hair)}
+.prov>summary{list-style:none;cursor:pointer;padding:14px 0;display:flex;align-items:center;gap:10px;font:500 12.5px var(--mono);color:var(--faint)}
+.prov>summary::-webkit-details-marker{display:none}
+.prov>summary:hover{color:var(--ink2)}
+.prov .provchev{margin-left:auto;font-size:10px;transition:transform .15s}
+.prov[open] .provchev{transform:rotate(90deg)}
+.provbody{padding:2px 0 10px}
+.provsec{margin-top:16px}
+.provk{font:600 11px var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--faint);margin:0 0 8px}
+.provsec .cd{font:12.5px var(--mono);color:var(--faint);margin:0}
+.provsec .cn{font-size:14.5px;font-weight:650;color:var(--ink);margin:2px 0 0}
+.provsec .cw{font-size:13.5px;color:var(--ink2);line-height:1.55;margin:6px 0 0}
+.provsec .curflag{display:inline-block;font:600 10px var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--settled);background:var(--settledwash);border-radius:20px;padding:2px 8px;margin-left:7px;vertical-align:1px}
+.revs{list-style:none;margin:0;padding:0}
+.revs li{font-size:13.5px;color:var(--ink2);line-height:1.55;padding:8px 0;border-top:1px solid var(--hair)}
+.revs li:first-child{border-top:none;padding-top:0}
+.revs b{color:var(--ink);font-weight:650}

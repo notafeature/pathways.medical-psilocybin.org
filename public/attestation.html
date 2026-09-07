@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Draft the two documents</title>
+<link rel="stylesheet" href="/style.css">
+<style>
+.pnav{display:flex;gap:18px;flex-wrap:wrap;margin-left:auto}
+.pnav a{font:600 13px var(--sans);color:var(--ink2);text-decoration:none}
+.pnav a:hover{color:var(--blue)}
+.req{font-size:13.5px;color:var(--ink2);line-height:1.6;max-width:78ch;margin:0 0 10px}
+form{max-width:64ch}
+fieldset{border:1px solid var(--hair);border-radius:6px;padding:12px 16px 16px;margin:0 0 16px}
+legend{font:600 13px var(--sans);color:var(--ink);padding:0 6px}
+label{display:block;font:600 12.5px var(--sans);color:var(--ink);margin:10px 0 3px}
+input[type=text],select{width:100%;font:14px var(--sans);padding:7px 9px;border:1px solid var(--hair);border-radius:4px;background:#fff;color:var(--ink)}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 0}
+.btn{font:600 13.5px var(--sans);padding:8px 16px;border:1.5px solid var(--ink);border-radius:4px;background:var(--ink);color:#fff;cursor:pointer}
+.btn.alt{background:#fff;color:var(--ink)}
+.btn:hover{background:var(--blue);border-color:var(--blue);color:#fff}
+.doc{border:1px solid var(--hair);border-radius:6px;padding:26px 30px;background:#fff;max-width:72ch;font:14.5px/1.7 Georgia,"Times New Roman",serif;color:var(--ink);white-space:pre-wrap;margin:14px 0 26px}
+.doc h3{font:700 15px/1.3 Georgia,serif;margin:0 0 14px;text-align:center;letter-spacing:.02em}
+.sig{margin-top:30px}
+@media print{.topbar,.pnav,.foot,form,.head,.note,.btns,.seclabel,.req{display:none!important}.doc{border:none;padding:0;page-break-after:always}}
+@media(max-width:760px){.pnav{display:none}}
+</style>
+</head>
+<body>
+<!-- header -->
+<!-- /header -->
+<main class="wrap">
+  <div class="head">
+    <p class="kicker">7.35.2.8 (A)(9) and (A)(11) &middot; the two documents the rule describes rather than supplies</p>
+    <h1>Draft the two documents</h1>
+    <p class="lede">The rule asks for a signed attestation that production stays in New Mexico, and, for a tenant, a signed statement from the property owner. It gives the content of each and no form. This drafter puts the rule's own words around your details and prints. Everything runs in your browser; nothing you type is sent anywhere or stored.</p>
+    <p class="stamp">The department may supply its own forms inside the portal; if it does, use those. This is not legal advice. Have a lawyer read anything you sign.</p>
+  </div>
+
+  <section>
+    <p class="seclabel">What the rule requires of each</p>
+    <div class="fix"><b>ATTESTATION</b><span class="what">"an attestation that all psilocybin and psilocybin products will be produced or tested (as applicable to the permit type) only within the state of New Mexico and will not be transported beyond the borders of the state of New Mexico". <a href="https://rules.medical-psilocybin.org/documents/rules-7.35.2-adopted-2026-06-23-published.pdf#page=4" target="_blank" rel="noopener">7.35.2.8 (A)(11), p. 4</a></span></div>
+    <div class="fix"><b>OWNER</b><span class="what">"proof of ownership of the facility or a signed, written statement from the owner of the property acknowledging that the owner understands that the tenant will be participating in the medical psilocybin program as a permittee and what their permit allows". <a href="https://rules.medical-psilocybin.org/documents/rules-7.35.2-adopted-2026-06-23-published.pdf#page=4" target="_blank" rel="noopener">7.35.2.8 (A)(9), p. 4</a></span></div>
+  </section>
+
+  <section>
+    <p class="seclabel">Your details</p>
+    <form id="f" onsubmit="return false">
+      <fieldset>
+        <legend>The applicant</legend>
+        <label for="ptype">Permit type</label>
+        <select id="ptype"><option value="producer">Psilocybin producer</option><option value="laboratory">Psilocybin testing laboratory</option></select>
+        <label for="aname">Applicant's legal name (the entity as registered, or the individual)</label>
+        <input type="text" id="aname" placeholder="Example Fungi, LLC">
+        <label for="etype">Entity type</label>
+        <select id="etype"><option>a New Mexico limited liability company</option><option>a New Mexico corporation</option><option>a New Mexico limited partnership</option><option>a sole proprietorship</option><option>a general partnership</option></select>
+        <label for="faddr">Facility address (street, city, New Mexico, ZIP)</label>
+        <input type="text" id="faddr" placeholder="123 Example Road, Santa Fe, New Mexico 87501">
+        <label for="sname">Name of the person signing for the applicant</label>
+        <input type="text" id="sname">
+        <label for="stitle">Their title (member, manager, president, owner)</label>
+        <input type="text" id="stitle">
+      </fieldset>
+      <fieldset>
+        <legend>The property owner (only if the applicant does not own the facility)</legend>
+        <label for="oname">Owner's legal name</label>
+        <input type="text" id="oname">
+        <label for="otype">Owner is</label>
+        <select id="otype"><option>an individual</option><option>a limited liability company</option><option>a corporation</option><option>a partnership</option><option>a trust</option></select>
+        <label for="osigner">Name of the person signing for the owner (leave blank if the owner is an individual)</label>
+        <input type="text" id="osigner">
+        <label for="ostitle">Their title</label>
+        <input type="text" id="ostitle">
+      </fieldset>
+      <div class="btns">
+        <button class="btn" type="button" onclick="draft()">Draft</button>
+        <button class="btn alt" type="button" onclick="window.print()">Print</button>
+      </div>
+    </form>
+  </section>
+
+  <section id="out" hidden>
+    <p class="seclabel">Document 1: the in-state attestation</p>
+    <div class="doc" id="d1"></div>
+    <p class="seclabel">Document 2: the property owner's statement</p>
+    <div class="doc" id="d2"></div>
+    <p class="req note">Both documents quote the rule's operative words and add only the identification a reader needs: who, which permit, which property, who signed, when. The owner's statement states the two things the rule requires the owner to acknowledge, participation as a permittee and what the permit allows, and describes what a permit allows in the rule's own terms. Notarization is not required by the rule; a notary block is included because a landlord's lawyer will often ask for one. Dates are left blank for signing.</p>
+  </section>
+</main>
+<script>
+function v(id){return (document.getElementById(id).value||"").trim();}
+function esc(s){return s.replace(/[&<>]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c];});}
+function draft(){
+  var pt=v("ptype"), name=v("aname")||"[applicant's legal name]", et=v("etype"), addr=v("faddr")||"[facility address]",
+      sn=v("sname")||"[name]", st=v("stitle")||"[title]", on=v("oname")||"[owner's legal name]", ot=v("otype"),
+      osn=v("osigner"), ost=v("ostitle");
+  var role = pt==="producer" ? "psilocybin producer" : "psilocybin testing laboratory";
+  var verb = pt==="producer" ? "produced" : "tested";
+  var allows = pt==="producer"
+    ? "cultivate, harvest, and process psilocybin-producing mushrooms and to manufacture, package, label, and possess psilocybin products on the permitted premises, and to sell or otherwise distribute them only to the persons the rule names"
+    : "receive, possess, sample, and test psilocybin and psilocybin products on the permitted premises for potency and contaminants";
+  var d1 = "<h3>ATTESTATION OF IN-STATE PRODUCTION AND TESTING<br>7.35.2.8 (A)(11) NMAC</h3>"
+    + esc(name)+", "+esc(et)+" (the \"Applicant\"), applies to the New Mexico Department of Health for a permit to operate as a "+role+" under 7.35.2 NMAC, Producer and Laboratory Requirements, at the facility located at "+esc(addr)+" (the \"Facility\").\n\n"
+    + "The Applicant attests that all psilocybin and psilocybin products will be "+verb+" only within the State of New Mexico and will not be transported beyond the borders of the State of New Mexico.\n\n"
+    + "The Applicant makes this attestation to satisfy Paragraph (11) of Subsection A of 7.35.2.8 NMAC, understands that it is a representation made to the Department, and understands that under 7.35.2.26 NMAC a failure to adhere to any attestation made to the Department is a ground for disciplinary action against a permit or an application.\n\n"
+    + "<div class=\"sig\">Signed: ______________________________________\n"+esc(sn)+", "+esc(st)+", for "+esc(name)+"\n\nDate: ____________________</div>";
+  var signer = (ot==="an individual") ? esc(on) : (esc(osn||"[name]")+", "+esc(ost||"[title]")+", for "+esc(on));
+  var d2 = "<h3>PROPERTY OWNER'S STATEMENT<br>7.35.2.8 (A)(9) NMAC</h3>"
+    + esc(on)+", "+esc(ot)+" (the \"Owner\"), is the owner of the real property located at "+esc(addr)+" (the \"Property\").\n\n"
+    + esc(name)+" (the \"Tenant\") occupies or will occupy the Property under an agreement with the Owner and has applied, or will apply, to the New Mexico Department of Health for a permit to operate as a "+role+" at the Property under 7.35.2 NMAC.\n\n"
+    + "The Owner states that the Owner understands that the Tenant will be participating in the New Mexico medical psilocybin program as a permittee, and that the Owner understands what the Tenant's permit allows: to "+allows+", subject to the requirements of 7.35.2 NMAC and the Medical Psilocybin Act, Sections 26-2D-1 through 26-2D-11 NMSA 1978.\n\n"
+    + "The Owner signs this statement so that the Tenant may submit it to the Department under Paragraph (9) of Subsection A of 7.35.2.8 NMAC. This statement acknowledges the Owner's understanding; it does not amend the agreement between the Owner and the Tenant.\n\n"
+    + "<div class=\"sig\">Signed: ______________________________________\n"+signer+"\n\nDate: ____________________\n\n\nSTATE OF NEW MEXICO )\nCOUNTY OF ________________ )\n\nThis instrument was acknowledged before me on ____________________ by "+signer+".\n\n______________________________________\nNotary Public\nMy commission expires: ________________</div>";
+  document.getElementById("d1").innerHTML=d1;
+  document.getElementById("d2").innerHTML=d2;
+  document.getElementById("out").hidden=false;
+  document.getElementById("out").scrollIntoView({behavior:"smooth"});
+}
+</script>
+<!-- footer -->
+<!-- /footer -->
+<!-- counter -->
+<!-- /counter -->
+</body>
+</html>
