@@ -14,7 +14,7 @@
   "assets": {
     "directory": "./public",
     "not_found_handling": "404-page",
-    "html_handling": "none"
+    "html_handling": "auto-trailing-slash"
   },
   "routes": [
     { "pattern": "pathways.medical-psilocybin.org", "custom_domain": true }
