@@ -55,11 +55,12 @@ def main():
         src = open(path).read()
         new = src
         for name, body in parts.items():
-            pat = re.compile(rf"(<!-- {name} -->\n).*?(\n<!-- /{name} -->)", re.S)
+            # an empty pair (marker, newline, closing marker) is the fresh state
+            pat = re.compile(rf"<!-- {name} -->\n(?:.*?\n)?<!-- /{name} -->", re.S)
             if not pat.search(new):
                 print(f"NO MARKER  {os.path.basename(path)}: {name}")
                 return 1
-            new = pat.sub(lambda m: m.group(1) + body + m.group(2), new, count=1)
+            new = pat.sub(lambda m: f"<!-- {name} -->\n{body}\n<!-- /{name} -->", new, count=1)
         if chr(8212) in new:
             print(f"EM DASH    {os.path.basename(path)}")
             return 1

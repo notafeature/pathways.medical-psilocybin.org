@@ -28,6 +28,19 @@ input[type=text],select{width:100%;font:14px var(--sans);padding:7px 9px;border:
 </head>
 <body>
 <!-- header -->
+<header class="topbar">
+  <div class="inner">
+    <a class="brand" href="/"><span class="dot"></span>pathways.medical-psilocybin.org</a>
+    <nav class="pnav" aria-label="Primary">
+      <a href="/business-license.html">Business license</a>
+      <a href="/commercial-space.html">The facility</a>
+      <a href="/zoning.html">Zoning</a>
+      <a href="/conditional-use.html">Conditional use</a>
+      <a href="/application.html">The application</a>
+      <a href="/attestation.html">Draft the documents</a>
+    </nav>
+  </div>
+</header>
 <!-- /header -->
 <main class="wrap">
   <div class="head">
@@ -118,8 +131,34 @@ function draft(){
 }
 </script>
 <!-- footer -->
+<footer class="foot"><div class="wrap">
+<span>Practical guides for applicants under New Mexico's medical psilocybin rules. Not affiliated with the New Mexico Department of Health or any local government.</span>
+<span>Nothing here is legal advice. Every requirement is cited to the rule or to the agency that administers it, as read on the date each page states; agencies change their pages and fees.</span>
+<a href="https://rules.medical-psilocybin.org/about/">Sources and method</a>
+<a href="https://rules.medical-psilocybin.org/7.35.2/comment.html">Report an error</a>
+</div></footer>
 <!-- /footer -->
 <!-- counter -->
+<script id="countjs">
+(function(){
+  var E="https://count.medical-psilocybin.org";
+  if(!E) return;
+  var nav=navigator;
+  if(nav.globalPrivacyControl===true||nav.doNotTrack==="1"||window.doNotTrack==="1") return;
+  if(location.protocol==="file:"||location.hostname==="localhost"||location.hostname==="127.0.0.1") return;
+  function send(k,p){
+    var body=JSON.stringify({k:k,p:p,r:document.referrer||""});
+    try{ if(nav.sendBeacon&&nav.sendBeacon(E+"/e",new Blob([body],{type:"text/plain;charset=UTF-8"}))) return; }catch(e){}
+    try{ if(window.fetch){ fetch(E+"/e",{method:"POST",body:body,mode:"cors",keepalive:true,headers:{"Content-Type":"text/plain;charset=UTF-8"}}).catch(function(){}); return; } }catch(e){}
+    new Image().src=E+"/px?p="+encodeURIComponent(p)+"&r="+encodeURIComponent(document.referrer||"");
+  }
+  send("pv",location.pathname);
+  document.addEventListener("click",function(e){
+    var a=e.target&&e.target.closest&&e.target.closest('a[href$=".pdf"]');
+    if(a) send("dl",a.getAttribute("href"));
+  },true);
+})();
+</script>
 <!-- /counter -->
 </body>
 </html>
