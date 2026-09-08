@@ -161,3 +161,10 @@ a.pdf[data-cite]:hover::after,a.pdf[data-cite]:focus-visible::after{left:auto;ri
 .revs li{font-size:13.5px;color:var(--ink2);line-height:1.55;padding:8px 0;border-top:1px solid var(--hair)}
 .revs li:first-child{border-top:none;padding-top:0}
 .revs b{color:var(--ink);font-weight:650}
+
+/* pathways-only additions; everything above is the rules site's stylesheet */
+.subnav{border-bottom:1px solid rgba(0,0,0,.08);font:600 12.5px var(--sans)}
+.subnav .wrap{display:flex;gap:18px;flex-wrap:wrap;padding-top:9px;padding-bottom:9px}
+.subnav a{color:var(--ink2);text-decoration:none}
+.subnav a:hover{color:var(--blue)}
+.status{display:inline-block;font:600 11px var(--sans);letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:3px;margin-bottom:6px;border:1px solid rgba(0,0,0,.15);color:var(--ink2)}

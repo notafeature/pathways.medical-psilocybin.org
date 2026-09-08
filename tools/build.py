@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """Stamp the shared header, footer, and counter beacon into every page in public/.
 
-Each page carries three marker pairs; whatever sits between them is replaced from
-public/_chrome.html and from the BEACON below. Run after editing a page or the
-chrome:
+Each page carries three marker pairs (header, footer, counter); whatever sits between
+them is replaced from public/_chrome.html and from the BEACON below. A page may also
+carry a subnav pair, filled from the _subnav.html in its own folder. Every root-absolute
+link must resolve to a file under public/ (a trailing slash means index.html, no
+extension means .html). Run after editing a page or the chrome:
 
     python3 tools/build.py          # rewrite
     python3 tools/build.py --check  # exit 1 if any page is out of date
@@ -47,13 +49,22 @@ def block(src, name):
 def main():
     check = "--check" in sys.argv
     chrome = open(os.path.join(PUB, "_chrome.html")).read()
-    parts = {"header": block(chrome, "header"), "footer": block(chrome, "footer"), "counter": BEACON}
+    shared = {"header": block(chrome, "header"), "footer": block(chrome, "footer"), "counter": BEACON}
     stale = []
-    for path in sorted(glob.glob(os.path.join(PUB, "*.html"))):
+    bad_links = []
+    for path in sorted(glob.glob(os.path.join(PUB, "**", "*.html"), recursive=True)):
         if os.path.basename(path).startswith("_"):
             continue
         src = open(path).read()
         new = src
+        parts = dict(shared)
+        # a folder's _subnav.html is stamped into pages that carry the subnav markers
+        subnav = os.path.join(os.path.dirname(path), "_subnav.html")
+        if "<!-- subnav -->" in src:
+            if not os.path.exists(subnav):
+                print(f"NO SUBNAV  {os.path.relpath(path, PUB)}: markers without {os.path.relpath(subnav, PUB)}")
+                return 1
+            parts["subnav"] = block(open(subnav).read(), "subnav")
         for name, body in parts.items():
             # an empty pair (marker, newline, closing marker) is the fresh state
             pat = re.compile(rf"<!-- {name} -->\n(?:.*?\n)?<!-- /{name} -->", re.S)
@@ -61,6 +72,14 @@ def main():
                 print(f"NO MARKER  {os.path.basename(path)}: {name}")
                 return 1
             new = pat.sub(lambda m: f"<!-- {name} -->\n{body}\n<!-- /{name} -->", new, count=1)
+        for href in re.findall(r'href="(/[^"#?]*)', new):
+            target = os.path.join(PUB, href.lstrip("/"))
+            if href.endswith("/"):
+                target = os.path.join(target, "index.html")
+            elif not os.path.splitext(href)[1]:
+                target += ".html"
+            if not os.path.exists(target):
+                bad_links.append(f"{os.path.relpath(path, PUB)} -> {href}")
         if chr(8212) in new:
             print(f"EM DASH    {os.path.basename(path)}")
             return 1
@@ -68,10 +87,14 @@ def main():
             stale.append(os.path.basename(path))
             if not check:
                 open(path, "w").write(new)
+    if bad_links:
+        print("links to nothing:\n  " + "\n  ".join(bad_links))
+        return 1
     if check and stale:
         print("out of date: " + ", ".join(stale))
         return 1
-    print(f"{'checked' if check else 'stamped'} {len(glob.glob(os.path.join(PUB, '[!_]*.html')))} pages")
+    count = len([p for p in glob.glob(os.path.join(PUB, "**", "*.html"), recursive=True) if not os.path.basename(p).startswith("_")])
+    print(f"{'checked' if check else 'stamped'} {count} pages")
     return 0
 
 

@@ -1,0 +1,7 @@
+# Addresses from the first day of the site, September 7, 2026, before one folder per role.
+/business-license /producers/business-license 301
+/commercial-space /producers/facility 301
+/zoning /producers/zoning 301
+/conditional-use /producers/conditional-use 301
+/application /producers/application 301
+/attestation /producers/attestation 301
